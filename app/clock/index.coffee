@@ -4,24 +4,25 @@ angular
         'common', 'ngAnimate'
     ]
     .controller 'ClockController',
-    [ '$scope', '$interval', '$http', 'ForecastFactory',
-    ($scope, $interval, $http, ForecastFactory) ->
+    [ '$scope', '$interval', '$http', 'ClockService', 'ForecastFactory',
+    ($scope, $interval, $http, ClockService, ForecastFactory) ->
+
+        document.addEventListener 'deviceready', ->
+            $scope.message = navigator.connection.type
+        , false
 
         steroids.statusBar.hide()
 
-        $scope.clock = "loading …"
         $scope.temp = 0
         $scope.toggle_tommorrow = false
-
-        moment.locale 'de'
 
         skycons = new Skycons
             "color": "grey"
         skycons.play()
 
         tick = ->
-            $scope.time = moment().format("HH:mm")
-            $scope.date = moment().format("dddd, D. MMMM YYYY")
+            $scope.time = ClockService.getTime()
+            $scope.date = ClockService.getDate()
 
         getTomorrowData = (response) ->
             tomorrow = moment()
