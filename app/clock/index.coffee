@@ -20,7 +20,7 @@ angular
         skycons.play()
 
         tick = ->
-            $scope.time = moment().format("HH:mm:ss")
+            $scope.time = moment().format("HH:mm")
             $scope.date = moment().format("dddd, D. MMMM YYYY")
 
         getTomorrowData = (response) ->

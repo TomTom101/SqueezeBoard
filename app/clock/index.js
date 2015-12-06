@@ -12,7 +12,7 @@ angular.module('clock', ['common', 'ngAnimate']).controller('ClockController', [
     });
     skycons.play();
     tick = function() {
-      $scope.time = moment().format("HH:mm:ss");
+      $scope.time = moment().format("HH:mm");
       return $scope.date = moment().format("dddd, D. MMMM YYYY");
     };
     getTomorrowData = function(response) {
