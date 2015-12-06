@@ -1,0 +1,95 @@
+@font-face {
+    font-family: "BPdots";
+    src: url("BPdots.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "DotDigital7";
+    src: url("advanced_dot_digital-7.ttf") format("truetype");
+}
+
+* {
+    background-color: #000000 !important;
+}
+
+.container, h1, h3 {
+    color: white;
+}
+
+div,
+span {}
+
+h1,
+h1 {
+    line-height: 0.8;
+}
+
+.time {
+    font-size: 7em;
+}
+
+.date {
+    font-size: 2em;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.widget {
+    margin: 0 auto;
+    display: inline-block;
+    padding-top: 10px;
+    width: 150px;
+}
+
+.icon,
+.temp {
+    float: left;
+}
+
+.icon canvas {
+    width: 64px;
+    height: 64px;
+}
+
+.temp {
+    margin-top: 25px;
+    font-size: 4em;
+}
+
+
+/**
+ * on change moves to this state with transition in .change-add (if given)
+ * otherwise jumps there
+ */
+
+.change {
+    opacity: 0.1;
+}
+
+.change-remove,
+.ng-hide-add-active,
+.ng-hide-remove-active {
+    /*no .change-add so jumps there */
+    transition: opacity 1s ease-in-out;
+}
+
+.ng-hide {
+    opacity: 0;
+}
+
+.ng-hide-add {
+    display: none;
+}
+
+.temp_min {
+    color: #6C93B2;
+}
+
+.temp_max {
+    color: #C42823;
+}

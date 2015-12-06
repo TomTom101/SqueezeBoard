@@ -1,0 +1,9 @@
+{
+  "name": "SqueezeBoard2",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-steroids": "1.x"
+  }
+}

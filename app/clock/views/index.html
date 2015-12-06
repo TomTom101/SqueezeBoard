@@ -1,0 +1,27 @@
+<div ng-controller="ClockController">
+    <div class="container">
+        <h1 class="time">{{ time }}</h1>
+        <h3 class="date">{{ date }}</h3>
+    </div>
+    <div class="container">
+        <div class="widget">
+            <div class="icon">
+                <canvas id="current" width="128" height="128"></canvas>
+            </div>
+            <div class="temp" animate-on-change="temp_current" ng-animate=" 'animate' ">
+                {{ temp_current | celcius |number:0 }}°
+            </div>
+        </div>
+        <div class="widget">
+            <div class="icon">
+                <canvas id="tomorrow" width="128" height="128"></canvas>
+            </div>
+            <div ng-show="toggle_tommorrow" class="temp temp_min" animate-on-change="temp_tomorrow" >
+                {{ temp_tomorrow_min | celcius |number:0 }}°
+            </div>
+            <div ng-hide="toggle_tommorrow" class="temp temp_max" >
+                {{ temp_tomorrow_max | celcius |number:0 }}°
+            </div>
+        </div>
+    </div>
+</div>
