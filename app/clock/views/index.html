@@ -5,23 +5,24 @@
     </div>
     <div class="container">
         <div class="widget">
-            <div class="icon">
-                <canvas id="current" width="128" height="128"></canvas>
-            </div>
             <div class="temp" animate-on-change="temp_current" ng-animate=" 'animate' ">
                 {{ temp_current | celcius |number:0 }}°
             </div>
+            <div class="icon">
+                <canvas id="current" width="128" height="128"></canvas>
+            </div>
         </div>
         <div class="widget">
+            <div class="temp temp_min">
+                {{ temp_tomorrow_min | celcius |number:0 }}°
+            </div>
             <div class="icon">
                 <canvas id="tomorrow" width="128" height="128"></canvas>
             </div>
-            <div ng-show="toggle_tommorrow" class="temp temp_min" animate-on-change="temp_tomorrow" >
-                {{ temp_tomorrow_min | celcius |number:0 }}°
-            </div>
-            <div ng-hide="toggle_tommorrow" class="temp temp_max" >
+            <div class="temp temp_max">
                 {{ temp_tomorrow_max | celcius |number:0 }}°
             </div>
         </div>
+        {{message}}
     </div>
 </div>

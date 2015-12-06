@@ -43,7 +43,7 @@ h1 {
     margin: 0 auto;
     display: inline-block;
     padding-top: 10px;
-    width: 150px;
+    width: 170px;
 }
 
 .icon,
@@ -88,8 +88,10 @@ h1 {
 
 .temp_min {
     color: #6C93B2;
+    font-size: 3em;
 }
 
 .temp_max {
     color: #C42823;
+    font-size: 3em;
 }
