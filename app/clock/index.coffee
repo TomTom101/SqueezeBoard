@@ -8,17 +8,14 @@ angular
     ($scope, $interval, $http, ClockService, ForecastFactory) ->
 
         document.addEventListener 'deviceready', ->
-            $scope.message = navigator.connection.type
+            window.brightness = cordova.require "cordova.plugin.Brightness.Brightness"
+            brightness.setKeepScreenOn on
+
+        window.addEventListener "batterystatus", (status) ->
+            $scope.message = status.level
         , false
 
         steroids.statusBar.hide()
-
-        $scope.temp = 0
-        $scope.toggle_tommorrow = false
-
-        skycons = new Skycons
-            "color": "grey"
-        skycons.play()
 
         tick = ->
             $scope.time = ClockService.getTime()
@@ -42,19 +39,10 @@ angular
                 if error
                     steroids.logger.error error
                 else
-                    tomorrow = getTomorrowData(response)
+                    $scope.weather_current = response.currently
+                    $scope.weather_tomorrow = getTomorrowData(response)
 
-                    $scope.temp_current = response.currently.apparentTemperature
-                    $scope.temp_tomorrow_min = tomorrow.temperatureMin
-                    $scope.temp_tomorrow_max = tomorrow.temperatureMax
 
-                    skycons.set "current", response.currently.icon
-                    skycons.set "tomorrow", tomorrow.icon
-
-        toggle_tommorrow_temp = ->
-            $scope.toggle_tommorrow = !$scope.toggle_tommorrow
-
-        $interval toggle_tommorrow_temp, 1000 * 10
         $interval tick, 1000
         $interval getForecast, 1000 * 60 * 10
         getForecast()

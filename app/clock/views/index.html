@@ -5,22 +5,22 @@
     </div>
     <div class="container">
         <div class="widget">
-            <div class="temp" animate-on-change="temp_current" ng-animate=" 'animate' ">
-                {{ temp_current | celcius |number:0 }}°
+            <div class="temp" animate-on-change="weather_tomorrow">
+                {{ weather_current.temperature | celcius |number:0 }}°
             </div>
             <div class="icon">
-                <canvas id="current" width="128" height="128"></canvas>
+                <i id="current" class="wi" ng-class="'wi-forecast-io-' + weather_current.icon"></i>
             </div>
         </div>
         <div class="widget">
             <div class="temp temp_min">
-                {{ temp_tomorrow_min | celcius |number:0 }}°
+                {{ weather_tomorrow.temperatureMin | celcius |number:0 }}°
             </div>
             <div class="icon">
-                <canvas id="tomorrow" width="128" height="128"></canvas>
+                <i id="tomorrow" class="wi" ng-class="'wi-forecast-io-' + weather_tomorrow.icon"></i>
             </div>
             <div class="temp temp_max">
-                {{ temp_tomorrow_max | celcius |number:0 }}°
+                {{ weather_tomorrow.temperatureMax | celcius |number:0 }}°
             </div>
         </div>
         {{message}}
