@@ -23,6 +23,11 @@
                 {{ weather_tomorrow.temperatureMax | celcius |number:0 }}°
             </div>
         </div>
-        {{message}}
+        <div class="widget">
+            <i class="wi wi-earthquake" ng-style="airColor">{{ airquality }}</i>
+        </div>
+        <div>
+            {{message}}
+        </div>
     </div>
 </div>

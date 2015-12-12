@@ -4,8 +4,8 @@ angular
         'common', 'ngAnimate'
     ]
     .controller 'ClockController',
-    [ '$scope', '$interval', '$http', 'ClockService', 'ForecastFactory',
-    ($scope, $interval, $http, ClockService, ForecastFactory) ->
+    [ '$scope', '$interval', '$http', 'ClockService', 'ForecastFactory', 'AirsensorFactory'
+    ($scope, $interval, $http, ClockService, ForecastFactory, AirsensorFactory) ->
 
         document.addEventListener 'deviceready', ->
             window.brightness = cordova.require "cordova.plugin.Brightness.Brightness"
@@ -20,6 +20,10 @@ angular
         tick = ->
             $scope.time = ClockService.getTime()
             $scope.date = ClockService.getDate()
+
+        setAirColor = () ->
+            color = one.color "hsl(#{$scope.airquality}, 100%, 50%)"
+            $scope.airColor = color: color.hex()
 
         getTomorrowData = (response) ->
             tomorrow = moment()
@@ -37,15 +41,25 @@ angular
         getForecast = ->
             ForecastFactory.currentForecast (error, response) ->
                 if error
-                    steroids.logger.error error
+                    steroids.logger.error "Error occured: #{error}"
                 else
                     $scope.weather_current = response.currently
                     $scope.weather_tomorrow = getTomorrowData(response)
 
+        getAirvalue = ->
+            AirsensorFactory.qualityIndex (error, response) ->
+                if error
+                    steroids.logger.error "Error occured: #{error}"
+                else
+                    $scope.airquality = response
+                    setAirColor()
+
 
         $interval tick, 1000
         $interval getForecast, 1000 * 60 * 10
+        $interval getAirvalue, 1000 * 30
         getForecast()
+        getAirvalue()
 
     ]
     .directive 'animateOnChange', ($animate, $timeout) ->
