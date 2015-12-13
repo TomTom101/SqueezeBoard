@@ -23,8 +23,10 @@ angular
             currentAirvalues (err, data) ->
                 voc = parseInt(data.data.e[0].v)
                 hslHue = voc.map(450, 2000, 120, 0) # 120 is the HSL angle for green, 0 is red
-                steroids.logger.log "From #{voc} to #{hslHue}"
-                callback null, hslHue
+                index = voc.map(450, 2000, 100, 0) # quality index from 0 to 100
+                callback null,
+                    hsl: hslHue
+                    index: index
 
 
         currentAirvalues = (callback) ->

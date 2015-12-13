@@ -16,7 +16,7 @@ angular.module('clock', ['common', 'ngAnimate']).controller('ClockController', [
     };
     setAirColor = function() {
       var color;
-      color = one.color("hsl(" + $scope.airquality + ", 100%, 50%)");
+      color = one.color("hsl(" + $scope.airquality.hsl + ", 100%, 50%)");
       return $scope.airColor = {
         color: color.hex()
       };

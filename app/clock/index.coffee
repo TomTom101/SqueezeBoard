@@ -22,7 +22,7 @@ angular
             $scope.date = ClockService.getDate()
 
         setAirColor = () ->
-            color = one.color "hsl(#{$scope.airquality}, 100%, 50%)"
+            color = one.color "hsl(#{$scope.airquality.hsl}, 100%, 50%)"
             $scope.airColor = color: color.hex()
 
         getTomorrowData = (response) ->

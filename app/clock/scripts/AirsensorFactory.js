@@ -20,11 +20,14 @@ angular.module('clock').factory('AirsensorFactory', [
     };
     qualityIndex = function(callback) {
       return currentAirvalues(function(err, data) {
-        var hslHue, voc;
+        var hslHue, index, voc;
         voc = parseInt(data.data.e[0].v);
         hslHue = voc.map(450, 2000, 120, 0);
-        steroids.logger.log("From " + voc + " to " + hslHue);
-        return callback(null, hslHue);
+        index = voc.map(450, 2000, 100, 0);
+        return callback(null, {
+          hsl: hslHue,
+          index: index
+        });
       });
     };
     currentAirvalues = function(callback) {
