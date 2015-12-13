@@ -11,21 +11,28 @@ http = require('http').Server(app)
 
 app.use cors()
 
-exec = require('child_process').exec
+cp = require('child_process')
 cmd = "/home/pi/airsensor/airsensor -o -j"
 
-
-
-returnAirsensorData = (res) ->
-    console.log "Getting getAirsensorData"
-    exec cmd, (error, stdout, stderr) ->
-        console.log stdout
-        res.setHeader 'Content-Type', 'application/json'
-        res.send stdout
-
 app
-  .get '/', (req, res) ->
-    returnAirsensorData res
+  .get '/stream', (req, res) ->
+
+    res.writeHead 200,
+        'Content-Type':     'text/event-stream'
+        'Cache-control':    'no-cache'
+        'Connection':       'keep-alive'
+
+    spw = cp.spawn '/home/pi/airsensor/airsensor', ['-j']
+
+    spw.stdout.on 'data',  (data) ->
+        out = data.toString()
+        lines = out.split "\n"
+        console.log lines.length, lines
+        res.write "data: #{lines[0]}\n\n" unless lines.length > 2
+
+    spw.on 'close', (code) ->
+        res.end str
+
 
 
 http.listen 3001, ->

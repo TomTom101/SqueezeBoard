@@ -46,20 +46,20 @@ angular
                     $scope.weather_current = response.currently
                     $scope.weather_tomorrow = getTomorrowData(response)
 
-        getAirvalue = ->
-            AirsensorFactory.qualityIndex (error, response) ->
-                if error
-                    steroids.logger.error "Error occured: #{error}"
-                else
-                    $scope.airquality = response
+        initAirvalueStream = ->
+            steroids.logger.log "initAirvalueStream"
+            AirsensorFactory.streamAirsensor (data) ->
+                steroids.logger.log "initAirvalueStream data:"
+                steroids.logger.log data
+                $scope.$apply  () ->
+                    $scope.airquality = data
                     setAirColor()
 
 
         $interval tick, 1000
         $interval getForecast, 1000 * 60 * 10
-        $interval getAirvalue, 1000 * 30
         getForecast()
-        getAirvalue()
+        initAirvalueStream()
 
     ]
     .directive 'animateOnChange', ($animate, $timeout) ->
