@@ -44,8 +44,7 @@ h1 {
 .widget {
     margin: 0 auto;
     display: inline-block;
-    padding-top: 10px;
-    width: 170px;
+    padding: 0 20px 0 20px;
 }
 
 .icon,
@@ -59,10 +58,9 @@ h1 {
 }
 
 i.wi {
-    font-size: 45px;
+    font-size: 3em;
     color: grey;
-    padding-top: 15px;
-    padding-right: 10px;
+    padding-top: 10px;
 }
 
 
