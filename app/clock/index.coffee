@@ -4,8 +4,8 @@ angular
         'common', 'ngAnimate'
     ]
     .controller 'ClockController',
-    [ '$scope', '$interval', '$http', 'ClockService', 'ForecastFactory', 'AirsensorFactory'
-    ($scope, $interval, $http, ClockService, ForecastFactory, AirsensorFactory) ->
+    [ '$scope', '$filter', '$interval', '$http', 'ClockService', 'ForecastFactory', 'AirsensorFactory'
+    ($scope, $filter, $interval, $http, ClockService, ForecastFactory, AirsensorFactory) ->
 
         document.addEventListener 'deviceready', ->
             window.brightness = cordova.require "cordova.plugin.Brightness.Brightness"
@@ -14,6 +14,11 @@ angular
         window.addEventListener "batterystatus", (status) ->
             $scope.message = status.level
         , false
+
+        # https://gka.github.io/palettes/#diverging|c0=#214290,#d8ecc7|c1=#fffd98,#be3f0f|steps=20|bez0=1|bez1=1|coL0=1|coL1=1
+        temp_scale = chroma
+            .scale ['#214290','#3e5296','#54629d','#6873a3','#7a84a9','#8b97ae','#9da9b4','#aebcba','#bfcebf','#d0e3c5','#fdf491','#f8df81','#f3cc73','#edb964','#e7a555','#e09247','#d87e39','#d06a2c','#c7561e','#be3f0f']
+            .domain [-20,30]
 
         init = ->
             steroids.statusBar.hide()
@@ -31,6 +36,11 @@ angular
         tick = ->
             $scope.time = ClockService.getTime()
             $scope.date = ClockService.getDate()
+
+        $scope.getTempColor = (fahrenheit) ->
+            celcius = $filter('celcius')(fahrenheit)
+            color = temp_scale celcius
+            color: color.hex()
 
         setAirColor = (hsl) ->
             color = one.color "hsl(#{hsl}, 100%, 50%)"

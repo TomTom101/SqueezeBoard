@@ -9,6 +9,7 @@
     "underscore": "1.7.x",
     "moment": "2.x",
     "weather-icons": "2.x",
-    "color": "*"
+    "color": "*",
+    "chroma-js": "*"
   }
 }
