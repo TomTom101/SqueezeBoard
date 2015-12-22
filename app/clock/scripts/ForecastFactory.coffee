@@ -11,7 +11,8 @@ angular
 
         pollForecastIO = (callback) ->
             steroids.logger.log "polling ForecastFactory"
-            url = ['https://api.forecast.io/forecast/', apiKey, '/', lat, ',', lon, '?callback=JSON_CALLBACK'].join ''
+            url = ['https://api.forecast.io/forecast/', apiKey, '/', lat, ',', lon].join ''
+            url+= ['?callback=JSON_CALLBACK', 'exclude=minutely,hourly', 'lang=de', 'units=ca'].join '&'
 
             $http.jsonp url
                 .success (data) ->

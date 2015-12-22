@@ -4,8 +4,8 @@ angular
         'common', 'ngAnimate'
     ]
     .controller 'ClockController',
-    [ '$scope', '$filter', '$interval', '$http', 'ClockService', 'ForecastFactory', 'AirsensorFactory'
-    ($scope, $filter, $interval, $http, ClockService, ForecastFactory, AirsensorFactory) ->
+    [ '$scope', '$interval', '$http', 'ClockService', 'ForecastFactory', 'AirsensorFactory'
+    ($scope, $interval, $http, ClockService, ForecastFactory, AirsensorFactory) ->
 
         document.addEventListener 'deviceready', ->
             window.brightness = cordova.require "cordova.plugin.Brightness.Brightness"
@@ -37,8 +37,7 @@ angular
             $scope.time = ClockService.getTime()
             $scope.date = ClockService.getDate()
 
-        $scope.getTempColor = (fahrenheit) ->
-            celcius = $filter('celcius')(fahrenheit)
+        $scope.getTempColor = (celcius) ->
             color = temp_scale celcius
             color: color.hex()
 

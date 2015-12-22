@@ -5,10 +5,10 @@
     </div>
     <div class="container">
         <div class="widget">
-            <i id="current" class="wi" ng-style="getTempColor(weather_current.temperature)" ng-class="'wi-forecast-io-' + weather_current.icon">{{ weather_current.temperature | celcius |number:0 }}°</i>
+            <i id="current" class="wi" ng-style="getTempColor(weather_current.temperature)" ng-class="'wi-forecast-io-' + weather_current.icon">{{ weather_current.temperature | number:0 }}°</i>
         </div>
         <div class="widget">
-            <i id="tomorrow" class="wi" ng-style="getTempColor(weather_tomorrow.temperatureMax)" ng-class="'wi-forecast-io-' + weather_tomorrow.icon">{{ weather_tomorrow.temperatureMax | celcius |number:0 }}°</i>
+            <i id="tomorrow" class="wi" ng-style="getTempColor(weather_tomorrow.temperatureMax)" ng-class="'wi-forecast-io-' + weather_tomorrow.icon">{{ weather_tomorrow.temperatureMax | number:0 }}°</i>
         </div>
         <div class="widget">
             <i id="airquality" class="wi wi-earthquake" ng-style="airColor">{{ airquality.index }}</i>
