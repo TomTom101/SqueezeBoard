@@ -15,14 +15,25 @@ angular
             $scope.message = status.level
         , false
 
-        steroids.statusBar.hide()
+        init = ->
+            steroids.statusBar.hide()
+
+            $interval tick, 1000
+            $interval getForecast, 1000 * 60 * 10
+
+            $scope.airquality =
+                index: "?"
+            setAirColor 0
+
+            getForecast()
+            initAirvalueStream()
 
         tick = ->
             $scope.time = ClockService.getTime()
             $scope.date = ClockService.getDate()
 
-        setAirColor = () ->
-            color = one.color "hsl(#{$scope.airquality.hsl}, 100%, 50%)"
+        setAirColor = (hsl) ->
+            color = one.color "hsl(#{hsl}, 100%, 50%)"
             $scope.airColor = color: color.hex()
 
         getTomorrowData = (response) ->
@@ -49,17 +60,13 @@ angular
         initAirvalueStream = ->
             steroids.logger.log "initAirvalueStream"
             AirsensorFactory.streamAirsensor (data) ->
-                steroids.logger.log "initAirvalueStream data:"
-                steroids.logger.log data
+                steroids.logger.log "initAirvalueStream"
                 $scope.$apply  () ->
                     $scope.airquality = data
-                    setAirColor()
+                    setAirColor $scope.airquality.hsl
 
 
-        $interval tick, 1000
-        $interval getForecast, 1000 * 60 * 10
-        getForecast()
-        initAirvalueStream()
+        init()
 
     ]
     .directive 'animateOnChange', ($animate, $timeout) ->

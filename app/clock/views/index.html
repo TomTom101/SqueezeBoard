@@ -5,26 +5,13 @@
     </div>
     <div class="container">
         <div class="widget">
-            <div class="temp" animate-on-change="weather_tomorrow">
-                {{ weather_current.temperature | celcius |number:0 }}°
-            </div>
-            <div class="icon">
-                <i id="current" class="wi" ng-class="'wi-forecast-io-' + weather_current.icon"></i>
-            </div>
+                <i id="current" class="wi" ng-class="'wi-forecast-io-' + weather_current.icon">{{ weather_current.temperature | celcius |number:0 }}°</i>
         </div>
         <div class="widget">
-            <div class="temp temp_min">
-                {{ weather_tomorrow.temperatureMin | celcius |number:0 }}°
-            </div>
-            <div class="icon">
-                <i id="tomorrow" class="wi" ng-class="'wi-forecast-io-' + weather_tomorrow.icon"></i>
-            </div>
-            <div class="temp temp_max">
-                {{ weather_tomorrow.temperatureMax | celcius |number:0 }}°
-            </div>
+                <i id="tomorrow" class="wi" ng-class="'wi-forecast-io-' + weather_tomorrow.icon">{{ weather_tomorrow.temperatureMax | celcius |number:0 }}°</i>
         </div>
         <div class="widget">
-            <i class="wi wi-earthquake" ng-style="airColor">{{ airquality.index }}</i>
+            <i id="airquality" class="wi wi-earthquake" ng-style="airColor">{{ airquality.index }}</i>
         </div>
         <div>
             {{message}}
