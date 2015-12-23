@@ -33,8 +33,6 @@ angular
             $scope.time = ClockService.getTime()
             $scope.date = ClockService.getDate()
 
-        dim = ->
-            
 
         $scope.getTempColor = (celcius) ->
             color = temp_scale celcius
