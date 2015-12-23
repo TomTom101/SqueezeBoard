@@ -4,16 +4,12 @@ angular
         'common', 'ngAnimate'
     ]
     .controller 'ClockController',
-    [ '$scope', '$interval', '$http', 'ClockService', 'ForecastFactory', 'AirsensorFactory'
-    ($scope, $interval, $http, ClockService, ForecastFactory, AirsensorFactory) ->
+    [ '$scope', '$interval', 'ClockService', 'ForecastFactory', 'AirsensorFactory'
+    ($scope, $interval, ClockService, ForecastFactory, AirsensorFactory) ->
 
         document.addEventListener 'deviceready', ->
             window.brightness = cordova.require "cordova.plugin.Brightness.Brightness"
             brightness.setKeepScreenOn on
-
-        window.addEventListener "batterystatus", (status) ->
-            $scope.message = status.level
-        , false
 
         # https://gka.github.io/palettes/#diverging|c0=#214290,#d8ecc7|c1=#fffd98,#be3f0f|steps=20|bez0=1|bez1=1|coL0=1|coL1=1
         temp_scale = chroma
@@ -36,6 +32,9 @@ angular
         tick = ->
             $scope.time = ClockService.getTime()
             $scope.date = ClockService.getDate()
+
+        dim = ->
+            
 
         $scope.getTempColor = (celcius) ->
             color = temp_scale celcius
@@ -65,6 +64,7 @@ angular
                 else
                     $scope.weather_current = response.currently
                     $scope.weather_tomorrow = getTomorrowData(response)
+                    $scope.message = response.daily.summary
 
         initAirvalueStream = ->
             steroids.logger.log "initAirvalueStream"
