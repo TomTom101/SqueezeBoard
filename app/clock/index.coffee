@@ -4,12 +4,13 @@ angular
         'common', 'ngAnimate'
     ]
     .controller 'ClockController',
-    [ '$scope', '$interval', 'ClockService', 'ForecastFactory', 'AirsensorFactory'
-    ($scope, $interval, ClockService, ForecastFactory, AirsensorFactory) ->
+    [ '$scope', '$interval', 'ClockService', 'ForecastFactory', 'AirsensorFactory', 'DimmerService'
+    ($scope, $interval, ClockService, ForecastFactory, AirsensorFactory, DimmerService) ->
 
         document.addEventListener 'deviceready', ->
             window.brightness = cordova.require "cordova.plugin.Brightness.Brightness"
             brightness.setKeepScreenOn on
+            dim()
 
         # https://gka.github.io/palettes/#diverging|c0=#214290,#d8ecc7|c1=#fffd98,#be3f0f|steps=20|bez0=1|bez1=1|coL0=1|coL1=1
         temp_scale = chroma
@@ -20,6 +21,7 @@ angular
             steroids.statusBar.hide()
 
             $interval tick, 1000
+            $interval dim, 1000 * 60 * 10
             $interval getForecast, 1000 * 60 * 10
 
             $scope.airquality =
@@ -29,10 +31,15 @@ angular
             getForecast()
             initAirvalueStream()
 
+
         tick = ->
             $scope.time = ClockService.getTime()
             $scope.date = ClockService.getDate()
 
+        dim = ->
+            h = moment().hour()
+            d = DimmerService.dim h
+            brightness.setBrightness d
 
         $scope.getTempColor = (celcius) ->
             color = temp_scale celcius
@@ -65,13 +72,10 @@ angular
                     $scope.message = response.daily.summary
 
         initAirvalueStream = ->
-            steroids.logger.log "initAirvalueStream"
             AirsensorFactory.streamAirsensor (data) ->
-                steroids.logger.log "initAirvalueStream"
                 $scope.$apply  () ->
                     $scope.airquality = data
                     setAirColor $scope.airquality.hsl
-
 
         init()
 

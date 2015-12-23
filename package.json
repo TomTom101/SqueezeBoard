@@ -1,13 +1,13 @@
 {
-    "name": "SqueezeBoard2",
-    "version": "0.0.3",
-    "private": true,
-    "dependencies": {},
-    "scripts": {
-        "test": "jest"
-    },
-    "devDependencies": {
-        "grunt-steroids": "1.x",
-        "jest-cli": "^0.8.2"
-    }
+  "name": "SqueezeBoard2",
+  "version": "0.0.4",
+  "private": true,
+  "dependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "grunt-steroids": "1.x",
+    "jest-cli": "^0.8.2"
+  }
 }
