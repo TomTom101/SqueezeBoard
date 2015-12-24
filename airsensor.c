@@ -288,7 +288,7 @@ int main(int argc, char *argv[])
 		fflush(stdout);
 
 		// Wait for next request for data
-		sleep(10);
+		sleep(20);
 
 	}
 
