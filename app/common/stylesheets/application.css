@@ -50,20 +50,13 @@ h1 {
     padding: 0 20px 0 20px;
 }
 
-.wi.temp:before {
-    color: #629EB3;
-}
-
 i.wi {
     font-size: 4em;
     padding-top: 10px;
 }
-i#current.wi {
-    color: white;
-}
 
-i#airquality.wi:before {
-
+.wi.temp:before {
+    color: grey;
 }
 
 i#tomorrow.wi:before {
@@ -73,6 +66,12 @@ i#tomorrow.wi:before {
 i#tomorrow.wi {
     color: #C42823;
 }
+
+i#airquality.wi:before {
+
+}
+
+
 
 /**
  * on change moves to this state with transition in .change-add (if given)
