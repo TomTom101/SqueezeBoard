@@ -7,7 +7,7 @@ angular.module('clock', ['common', 'ngAnimate']).controller('ClockController', [
       brightness.setKeepScreenOn(true);
       return dim();
     });
-    temp_scale = chroma.scale(['#214290', '#3e5296', '#54629d', '#6873a3', '#7a84a9', '#8b97ae', '#9da9b4', '#aebcba', '#bfcebf', '#d0e3c5', '#fdf491', '#f8df81', '#f3cc73', '#edb964', '#e7a555', '#e09247', '#d87e39', '#d06a2c', '#c7561e', '#be3f0f']).domain([-20, 30]);
+    temp_scale = chroma.scale(['#214290', '#364c94', '#455798', '#53619c', '#606ca0', '#6c78a4', '#7983a8', '#858fac', '#8f9bb0', '#9ba7b3', '#a6b3b7', '#b1c0bb', '#bdccbe', '#c7d9c2', '#d2e6c5', '#fef793', '#fbea89', '#f8dd7f', '#f4d076', '#f1c46c', '#edb762', '#e8aa59', '#e49d50', '#df9146', '#da833d', '#d57734', '#d06a2b', '#ca5c22', '#c44f19', '#be3f0f']).domain([-20, 35]);
     init = function() {
       steroids.statusBar.hide();
       $interval(tick, 1000);
