@@ -35,7 +35,7 @@
 #endif
 
 const int min_value = 450;
-const int max_value = 2500;
+const int max_value = 2000;
 
 #define max(a,b) \
    ({ __typeof__ (a) _a = (a); \
