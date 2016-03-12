@@ -34,7 +34,24 @@
 	#include <asm/byteorder.h>
 #endif
 
+const int min_value = 450;
+const int max_value = 2500;
+
+#define max(a,b) \
+   ({ __typeof__ (a) _a = (a); \
+       __typeof__ (b) _b = (b); \
+     _a > _b ? _a : _b; })
+
+#define min(a,b) \
+  ({ __typeof__ (a) _a = (a); \
+      __typeof__ (b) _b = (b); \
+    _a < _b ? _a : _b; })
+
 struct usb_dev_handle *devh;
+
+int inRange(int voc) {
+  return max(min_value, min(max_value, voc));
+}
 
 void help() {
 
@@ -262,22 +279,15 @@ int main(int argc, char *argv[])
 
  		// According to AppliedSensor specifications the output range is between 450 and 2000
  		// So only printout values between this range
-
-		if ( voc >= 450 && voc <= 2001) {
-			if (print_voc_only == 1) {
-				printf("%d\n", voc);
-			} else if (print_json == 1) {
-				printf(senml, voc, (int)t);
-			} else {
-				printf("%04d-%02d-%02d %02d:%02d:%02d, ", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-				printf("VOC: %d, RESULT: OK\n", voc);
-			}
+		if (print_json == 1) {
+			printf(senml, inRange(voc), (int)t);
 		} else {
-			if (print_voc_only == 1) {
-				printf("0\n");
+			printf("%04d-%02d-%02d %02d:%02d:%02d, ", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+			if ( voc >= min_value && voc < max_value) {
+				printf("VOC: %d, RESULT: OK\n", voc);
 			} else {
-				printf("%04d-%02d-%02d %02d:%02d:%02d, ", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 				printf("VOC: %d, RESULT: Error value out of range\n", voc);
+
 			}
 		}
 

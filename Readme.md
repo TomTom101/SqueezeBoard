@@ -5,11 +5,11 @@ Plugins used
 ]
 
 
-###Airsensor
-####Compile
+### Airsensor
+#### Compile
 gcc -o airsensor airsensor.c -lusb
 
-####Run
+#### Run
 $ forever start -p /home/pi/.forever --sourceDir=/home/pi/airsensor server.js
 
 
