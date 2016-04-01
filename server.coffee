@@ -12,7 +12,9 @@ http = require('http').Server(app)
 app.use cors()
 
 cp = require('child_process')
+# Expect airsensor in same folder
 spw = cp.spawn './airsensor', ['-j']
+
 
 app
   .get '/stream', (req, res) ->

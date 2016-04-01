@@ -9,7 +9,7 @@
 
 export NODE_PATH=$NODE_PATH:/usr/local/bin
 export HOME=/root
-NODESCRIPT=/home/pi/airsensor/
+NODESCRIPT=/home/pi/SqueezeBoard2/
 
 case "$1" in
   start)
