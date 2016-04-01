@@ -12,8 +12,7 @@ http = require('http').Server(app)
 app.use cors()
 
 cp = require('child_process')
-cmd = "/home/pi/airsensor/airsensor -o -j"
-spw = cp.spawn '/home/pi/airsensor/airsensor', ['-j']
+spw = cp.spawn './airsensor', ['-j']
 
 app
   .get '/stream', (req, res) ->

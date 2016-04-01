@@ -7,6 +7,9 @@ Plugins used
 
 ### Airsensor
 #### Compile
+sudo apt-get install libusb-dev
+sudo vi /etc/udev/rules.d/99-usb.rules
+SUBSYSTEM=="usb", ATTR{idVendor}=="03eb", ATTR{idProduct}=="2013", MODE="0666"
 gcc -o airsensor airsensor.c -lusb
 
 #### Run
