@@ -13,7 +13,7 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="03eb", ATTR{idProduct}=="2013", MODE="0666"
 gcc -o airsensor airsensor.c -lusb
 
 #### Run
-$ forever start -p /home/pi/.forever --sourceDir=/home/pi/SqueezeBoard2 server.js
+$ forever start -p /home/pi/.forever --sourceDir=/home/pi/SqueezeBoard server.js
 
 
 npm install forever -g
