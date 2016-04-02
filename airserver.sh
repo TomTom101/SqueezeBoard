@@ -1,3 +1,5 @@
+#!/bin/sh -
+
 ### BEGIN INIT INFO
 # Provides:             airsensor
 # Required-Start:
