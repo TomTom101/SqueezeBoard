@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "cors": "~2.7.1",
-    "express": "~4.13.4"
+    "express": "~4.13.4",
+    "csv-write-stream": "~2.0.0"
   },
   "scripts": {
     "test": "jest"
