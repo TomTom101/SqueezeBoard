@@ -51,7 +51,7 @@ log_data = function(json) {
     avg = sum / data_array.length;
     air_index = avg.map(450, 2000, 100, 0);
     writer.write({
-      timestamp: json.e[0].t,
+      timestamp: new Date().toISOString(),
       index: air_index
     });
     return data_array = [];

@@ -42,7 +42,7 @@ log_data = (json) ->
     air_index = avg.map(450, 2000, 100, 0)
     #console.log "Logging #{air_index} as avg of", data_array
     writer.write
-      timestamp: json.e[0].t
+      timestamp: new Date().toISOString()
       index: air_index
     data_array = []
 
