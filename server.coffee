@@ -9,6 +9,8 @@ express = require 'express'
 app = express()
 http = require('http').Server(app)
 fs = require 'fs'
+moment = require 'moment'
+
 app.use cors()
 
 csvWriter = require 'csv-write-stream'
@@ -42,7 +44,7 @@ log_data = (json) ->
     air_index = avg.map(450, 2000, 100, 0)
     #console.log "Logging #{air_index} as avg of", data_array
     writer.write
-      timestamp: new Date().toISOString()
+      timestamp: moment().format()
       index: air_index
     data_array = []
 
