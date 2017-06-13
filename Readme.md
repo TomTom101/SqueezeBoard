@@ -12,12 +12,10 @@ sudo vi /etc/udev/rules.d/99-usb.rules
 SUBSYSTEM=="usb", ATTR{idVendor}=="03eb", ATTR{idProduct}=="2013", MODE="0666"
 gcc -o airsensor airsensor.c -lusb
 
+### Server
+$ npm install pm2 -g
+
 #### Run
-$ forever start -p /home/pi/.forever --sourceDir=/home/pi/SqueezeBoard server.js
-
-
-npm install forever -g
-$ chown pi:pi airserver.sh && chmod +x airserver.sh
-$ sudo cp airserver.sh /etc/init.d/
-$ sudo update-rc.d airserver.sh defaults
-$ /etc/init.d/airserver.sh start
+$ pm2 start /home/pi/SqueezeBoard/server.js --name "SqueezeBoard"
+$ pm2 save
+$ pm2 startup
