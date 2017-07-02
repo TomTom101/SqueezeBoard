@@ -5,8 +5,8 @@
   "dependencies": {
     "cors": "~2.7.1",
     "express": "~4.13.4",
-    "csv-write-stream": "~2.0.0",
-    "moment": "~2.18.1"
+    "moment": "~2.18.1",
+    "keen-tracking": "~1.1.4"
   },
   "scripts": {
     "test": "jest"

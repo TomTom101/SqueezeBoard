@@ -8,15 +8,15 @@ cors = require 'cors'
 express = require 'express'
 app = express()
 http = require('http').Server(app)
-fs = require 'fs'
 moment = require 'moment'
+KeenTracking = require 'keen-tracking'
+
+#// This is your actual Project ID and Write Key
+keenio = new KeenTracking
+    projectId: '5958f9fdbe8c3e85dbe0c881',
+    writeKey: 'F5632AD9F4465A114E437DAF44A5958CA52C6AC4EFD7CDBA37ED0409B5B26EA029D60874FF6573EC11F0A8A6C7A2CF04B6E8EFD93E60CD3E4361EC28F772246D8B80F7BE11E8481D70B6CBD078C113F1DEF53D7E619CC6CC66B106412333EA8B'
 
 app.use cors()
-
-csvWriter = require 'csv-write-stream'
-writer = csvWriter()
-writeStream = fs.createWriteStream 'airquality.csv',  flags: 'a'
-writer.pipe writeStream
 
 cp = require('child_process')
 
@@ -43,9 +43,11 @@ log_data = (json) ->
     avg = sum / data_array.length
     air_index = avg.map(450, 2000, 100, 0)
     #console.log "Logging #{air_index} as avg of", data_array
-    writer.write
-      timestamp: moment().format()
-      index: air_index
+    keenio.recordEvent 'airquality',
+        q: air_index
+        weekday: moment().isoWeekday()
+        is_weekend: moment().isoWeekday() > 5
+
     data_array = []
 
 app

@@ -1,4 +1,4 @@
-var app, cors, cp, csvWriter, data_array, data_points_to_average, express, fs, http, log_data, moment, poll_every, send_every, spw, sumarray, writeStream, writer;
+var KeenTracking, app, cors, cp, data_array, data_points_to_average, express, http, keenio, log_data, moment, poll_every, send_every, spw, sumarray;
 
 cors = require('cors');
 
@@ -8,21 +8,16 @@ app = express();
 
 http = require('http').Server(app);
 
-fs = require('fs');
-
 moment = require('moment');
 
-app.use(cors());
+KeenTracking = require('keen-tracking');
 
-csvWriter = require('csv-write-stream');
-
-writer = csvWriter();
-
-writeStream = fs.createWriteStream('airquality.csv', {
-  flags: 'a'
+keenio = new KeenTracking({
+  projectId: '5958f9fdbe8c3e85dbe0c881',
+  writeKey: 'F5632AD9F4465A114E437DAF44A5958CA52C6AC4EFD7CDBA37ED0409B5B26EA029D60874FF6573EC11F0A8A6C7A2CF04B6E8EFD93E60CD3E4361EC28F772246D8B80F7BE11E8481D70B6CBD078C113F1DEF53D7E619CC6CC66B106412333EA8B'
 });
 
-writer.pipe(writeStream);
+app.use(cors());
 
 cp = require('child_process');
 
@@ -52,9 +47,10 @@ log_data = function(json) {
     sum = data_array.reduce(sumarray);
     avg = sum / data_array.length;
     air_index = avg.map(450, 2000, 100, 0);
-    writer.write({
-      timestamp: moment().format(),
-      index: air_index
+    keenio.recordEvent('airquality', {
+      q: air_index,
+      weekday: moment().isoWeekday(),
+      is_weekend: moment().isoWeekday() > 5
     });
     return data_array = [];
   }
