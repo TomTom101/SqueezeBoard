@@ -43,16 +43,16 @@ log_data = function(json) {
   var air_index, avg, sum, value;
   value = json.e[0].v;
   data_array.push(value);
-  if (data_array.length % data_points_to_average === 0) {
+  if (data_array.length >= data_points_to_average) {
     sum = data_array.reduce(sumarray);
     avg = sum / data_array.length;
     air_index = avg.map(450, 2000, 100, 0);
-    keenio.recordEvent('airquality', {
+    data_array = [];
+    return keenio.recordEvent('airquality', {
       q: air_index,
       weekday: moment().isoWeekday(),
       is_weekend: moment().isoWeekday() > 5
     });
-    return data_array = [];
   }
 };
 

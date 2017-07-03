@@ -38,17 +38,17 @@ log_data = (json) ->
   value = json.e[0].v
   data_array.push value
   #console.log "Length is #{data_array.length}"
-  if data_array.length % data_points_to_average is 0
+  if data_array.length >= data_points_to_average
     sum = data_array.reduce sumarray
     avg = sum / data_array.length
     air_index = avg.map(450, 2000, 100, 0)
-    #console.log "Logging #{air_index} as avg of", data_array
+    #console.log "log_data called at #{moment().format('h:mm:ss SSS')} with #{data_array.length} entries"
+    data_array = []
     keenio.recordEvent 'airquality',
         q: air_index
         weekday: moment().isoWeekday()
         is_weekend: moment().isoWeekday() > 5
 
-    data_array = []
 
 app
   .get '/stream', (req, res) ->
