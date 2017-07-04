@@ -42,13 +42,20 @@ log_data = (json) ->
     sum = data_array.reduce sumarray
     avg = sum / data_array.length
     air_index = avg.map(450, 2000, 100, 0)
-    #console.log "log_data called at #{moment().format('h:mm:ss SSS')} with #{data_array.length} entries"
+    #console.log "#{moment().format('h:mm:ss SSS')} log_data #{air_index} with #{data_array.length} entries"
     data_array = []
     keenio.recordEvent 'airquality',
         q: air_index
         weekday: moment().isoWeekday()
         is_weekend: moment().isoWeekday() > 5
 
+stdoutToJson = (data) ->
+  out = data.toString()
+  JSON.parse out
+
+spw.stdout.on 'data', (data) ->
+  json = stdoutToJson data
+  log_data json
 
 app
   .get '/stream', (req, res) ->
@@ -57,19 +64,16 @@ app
         'Content-Type':     'text/event-stream'
         'Cache-control':    'no-cache'
 
-
     spw.stdout.on 'data',  (data) ->
-        out = data.toString()
-        json  = JSON.parse out
-        lines = out.split "\n"
-        log_data json
-        res.write "data: #{lines[0]}\n\n" unless lines.length > 2
+        json = stdoutToJson data
+        json_str = JSON.stringify json
+
+        res.write "data: #{json_str}\n\n" #unless lines.length > 2
 
     spw.on 'close', (code) ->
         res.end()
 
     return
-
 
 
 http.listen 3001, ->

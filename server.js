@@ -1,4 +1,4 @@
-var KeenTracking, app, cors, cp, data_array, data_points_to_average, express, http, keenio, log_data, moment, poll_every, send_every, spw, sumarray;
+var KeenTracking, app, cors, cp, data_array, data_points_to_average, express, http, keenio, log_data, moment, poll_every, send_every, spw, stdoutToJson, sumarray;
 
 cors = require('cors');
 
@@ -56,20 +56,28 @@ log_data = function(json) {
   }
 };
 
+stdoutToJson = function(data) {
+  var out;
+  out = data.toString();
+  return JSON.parse(out);
+};
+
+spw.stdout.on('data', function(data) {
+  var json;
+  json = stdoutToJson(data);
+  return log_data(json);
+});
+
 app.get('/stream', function(req, res) {
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-control': 'no-cache'
   });
   spw.stdout.on('data', function(data) {
-    var json, lines, out;
-    out = data.toString();
-    json = JSON.parse(out);
-    lines = out.split("\n");
-    log_data(json);
-    if (!(lines.length > 2)) {
-      return res.write("data: " + lines[0] + "\n\n");
-    }
+    var json, json_str;
+    json = stdoutToJson(data);
+    json_str = JSON.stringify(json);
+    return res.write("data: " + json_str + "\n\n");
   });
   spw.on('close', function(code) {
     return res.end();

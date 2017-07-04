@@ -16,6 +16,6 @@ gcc -o airsensor airsensor.c -lusb
 $ npm install pm2 -g
 
 #### Run
-$ pm2 start /home/pi/SqueezeBoard/server.js --name "SqueezeBoard"
+$ pm2 start /home/pi/SqueezeBoard/server.js --name "SqueezeBoard" --log-date-format 'DD-MM HH:mm:ss.SSS'
 $ pm2 save
 $ pm2 startup
