@@ -13,9 +13,14 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="03eb", ATTR{idProduct}=="2013", MODE="0666"
 gcc -o airsensor airsensor.c -lusb
 
 ### Server
-$ npm install pm2 -g
+$ npm install pm2@latest -g
 
 #### Run
-$ pm2 start /home/pi/SqueezeBoard/server.js --name "SqueezeBoard" --log-date-format 'DD-MM HH:mm:ss.SSS'
+
+$ pm2 start config.js
 $ pm2 save
-$ pm2 startup
+$ sudo pm2 unstartup
+$ sudo pm2 startup -u pi
+
+Darauf achten dass der dump auch der ist, der per save gespeichert wurde
+> Restoring processes located in /home/pi/.pm2/dump.pm2
