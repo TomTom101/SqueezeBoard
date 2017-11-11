@@ -19,12 +19,10 @@ if dev.is_kernel_driver_active(0):
             print ("kernel driver detached")
     except usb.core.USBError as e:
             sys.exit("Could not detach kernel driver: %s" % str(e))
-else:
-    print ("no kernel driver attached")
+
 #dev.set_configuration()
 
 usb.util.claim_interface(dev, 0)
-print ("claimed device")
 
 # get an endpoint instance
 cfg = dev.get_active_configuration()
@@ -40,22 +38,21 @@ ep = usb.util.find_descriptor(
         usb.util.ENDPOINT_OUT)
 
 assert ep is not None
-print(ep)
 
 def read():
     try:
         return dev.read(0x81, 0x10, 1000)
     except usb.core.USBError:
-        print("timeout")
+        print("?")
 
 #Flush
 read()
 
 ret = dev.write(0x02, "\x40\x68\x2a\x54\x52\x0a\x40\x40\x40\x40\x40\x40\x40\x40\x40\x40", 1000)
-print("USB returns {} on write".format(ret))
+#print("USB returns {} on write".format(ret))
 
 data = read()
-print("USB returns {} with length {} on read".format(data, len(data)))
+#print("USB returns {} with length {} on read".format(data, len(data)))
 
-toc = unpack_from('<H', data, 2)
-print("Data is {}".format(toc))
+toc, = unpack_from('<H', data, 2)
+print(toc)
