@@ -1,7 +1,13 @@
+#!/usr/bin/env python
+
+import sys
 import usb.core
 import usb.util
 from time import sleep
 from struct import unpack_from, calcsize
+
+def mapNum(value, in_min, in_max, out_min, out_max):
+    return int((value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min)
 
 vendor = 0x03eb
 product = 0x2013
@@ -55,4 +61,6 @@ data = read()
 #print("USB returns {} with length {} on read".format(data, len(data)))
 
 toc, = unpack_from('<H', data, 2)
-print(toc)
+
+toc = max(450, min(2000, toc))
+print(mapNum(toc, 450, 2000, 100, 0))

@@ -9,19 +9,24 @@ angular
 
         streamAirsensor = (callback) ->
             if (typeof EventSource is "undefined")
-                steroids.logger.log "EventSource not supported!"
+                steroids.logger.log "EventSource not supported! Bad."
             else
-                airstream = new EventSource 'http://192.168.0.18:3001/stream'
-                airstream.onmessage = (message) ->
-                    callback qualityIndex JSON.parse message.data
+                airstream = new EventSource 'http://192.168.0.18:8080/rest/events?topics=smarthome/items/exec_command_927931ae_output/state'
+                airstream.addEventListener "message", (message) ->
+                  event = JSON.parse message.data
+                  if event.type is 'ItemStateChangedEvent'
+                    data = JSON.parse event.payload
+                    callback qualityIndex data.value
+
+                airstream.onerror= (error) ->
+                  steroids.logger.log "Error with EventSource"
 
 
         qualityIndex = (data) ->
-            voc = parseInt(data.e[0].v)
-            hslHue = voc.map(450, 2000, 120, 0) # 120 is the HSL angle for green, 0 is red
-            index = voc.map(450, 2000, 100, 0) # quality index from 0 to 100
+            voc = parseInt(data)
+            hslHue = voc.map(100, 0, 120, 0) # 120 is the HSL angle for green, 0 is red
 
             hsl: hslHue
-            index: index
+            index: voc
 
         streamAirsensor: streamAirsensor

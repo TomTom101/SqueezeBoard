@@ -1,3 +1,18 @@
+### Install app
+$ steroids deploy
+https://cloud.appgyver.com/applications/91514
+$ adb install -r app-….apk
+
+### Install openhab2
+
+$ apt-get install openhab2
+
+/var/log muss schreibbar sein, ist es nicht mit den settings in fstab
+
+In /usr/share/openhab2/runtime/services.cfg:
+
+`org.eclipse.smarthome.cors:enable=true`
+
 Plugins used
 [
   {"source":"https://github.com/fiscal-cliff/phonegap-plugin-brightness.git"},
