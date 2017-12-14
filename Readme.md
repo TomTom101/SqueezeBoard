@@ -1,3 +1,10 @@
+## Install node
+
+Install nvm
+$ nvm install 6
+$ npm install steroids -g
+
+
 ### Install app
 $ steroids deploy
 https://cloud.appgyver.com/applications/91514

@@ -49,7 +49,8 @@ def read():
     try:
         return dev.read(0x81, 0x10, 1000)
     except usb.core.USBError:
-        print("?")
+        print("Could not read from USB")
+        sys.exit()
 
 #Flush
 read()
@@ -59,7 +60,7 @@ ret = dev.write(0x02, "\x40\x68\x2a\x54\x52\x0a\x40\x40\x40\x40\x40\x40\x40\x40\
 
 data = read()
 #print("USB returns {} with length {} on read".format(data, len(data)))
-
+assert len(data) > 0
 toc, = unpack_from('<H', data, 2)
 
 toc = max(450, min(2000, toc))
