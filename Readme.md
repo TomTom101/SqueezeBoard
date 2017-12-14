@@ -8,6 +8,7 @@ $ npm install steroids -g
 ### Install app
 $ steroids deploy
 https://cloud.appgyver.com/applications/91514
+Build as `Ad Hoc (Android with Platform WebView) v4.5.1`
 $ adb install -r app-….apk
 
 ### Install openhab2
