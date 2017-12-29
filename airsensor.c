@@ -170,11 +170,13 @@ int main(int argc, char *argv[])
 		dev = find_device(vendor, product);
 		sleep(1);
 
-		if (dev == NULL)
+		if (dev == NULL) {
+
 			if (debug == 1)
 				printout("DEBUG: No device found, wait 10sec...", 0);
 
-		sleep(10);
+			sleep(10);
+		}
 
 		++counter;
 
