@@ -18,7 +18,8 @@ dev = usb.core.find(idVendor=vendor, idProduct=product)
 
 # was it found?
 if dev is None:
-    raise ValueError('Device not found')
+    print('😫')
+    sys.exit()
 
 
 if dev.is_kernel_driver_active(0):
